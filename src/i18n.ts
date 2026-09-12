@@ -267,7 +267,7 @@ export const content: Record<Lang, Content> = {
           period: '2020 – 2021',
           points: [
             'Analyse de données et production de tableaux de bord sous Power BI.',
-            'Traitement et suivi des factures fournisseurs sur Microsoft Dynamics AX (~40 factures par mois), relances des impayés.',
+            'Traitement et suivi des factures fournisseurs sur Microsoft Dynamics AX (20 factures par mois), relances des impayés.',
             "Gestion du processus de recrutement de bout en bout : publication des offres sur VacancyFiller, planification et assistance aux entretiens.",
             'Préparation des dossiers de demandes de permis de travail pour les collaborateurs internationaux.',
           ],
@@ -649,7 +649,7 @@ export const content: Record<Lang, Content> = {
           period: '2020 – 2021',
           points: [
             'Data analysis and Power BI dashboard production.',
-            'Supplier invoice processing and follow-up in Microsoft Dynamics AX (~40 invoices per month), including chasing unpaid ones.',
+            'Supplier invoice processing and follow-up in Microsoft Dynamics AX (20 invoices per month), including chasing unpaid ones.',
             'End-to-end recruitment support: posting roles on VacancyFiller, scheduling and assisting interviews.',
             'Preparing work permit applications for international staff.',
           ],
