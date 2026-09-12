@@ -1,0 +1,14 @@
+{
+  "name": "John Stewart Nucum — Portfolio",
+  "short_name": "JSN",
+  "description": "Portfolio of John Stewart Nucum, junior business analyst based in Geneva.",
+  "start_url": "/portfolio/",
+  "scope": "/portfolio/",
+  "display": "standalone",
+  "background_color": "#0b0c10",
+  "theme_color": "#0b0c10",
+  "icons": [
+    { "src": "/portfolio/favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" },
+    { "src": "/portfolio/apple-touch-icon.png", "sizes": "180x180", "type": "image/png" }
+  ]
+}

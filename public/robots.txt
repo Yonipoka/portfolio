@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+# The 404 page must never be indexed as a real page.
+Disallow: /portfolio/404.html
+
+Sitemap: https://yonipoka.github.io/portfolio/sitemap.xml

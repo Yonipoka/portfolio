@@ -1,0 +1,226 @@
+@import 'tailwindcss';
+
+@theme {
+  /* Swiss editorial palette: paper, ink, one signal colour. Nothing else. */
+  /* Every pair below is checked against WCAG AA by scripts/audit.mjs.
+     ink-3 on paper: 4.58:1 · signal on paper: 4.67:1
+     paper-muted on ink: 7.62:1 · signal-light on ink: 6.81:1 */
+  --color-paper: #ebe8e1;
+  --color-paper-2: #e2dfd7;
+  --color-paper-muted: #a8a49c;
+  --color-ink: #0e0e0c;
+  --color-ink-2: #4a4843;
+  --color-ink-3: #6b6862;
+  --color-rule: #c6c2b8;
+  --color-signal: #c22a14;
+  --color-signal-light: #ff7a5e;
+
+  --font-display: 'Archivo', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --font-sans: 'Archivo', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+}
+
+/* Cascade layers matter here. Anything written outside a layer beats EVERY
+   Tailwind utility, whatever its specificity, so a base rule like
+   `button.label { display: inline-block }` silently cancels `md:hidden`.
+   Resets go in @layer base, component classes in @layer components: both
+   rank below utilities, so a utility class always wins. */
+@layer base {
+
+  :root {
+    color-scheme: light;
+    --gutter: clamp(1rem, 4vw, 3.5rem);
+  }
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    background: var(--color-paper);
+  }
+
+  body {
+    margin: 0;
+    background: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+  }
+
+  /* ScrollSmoother requires these two wrappers; without JS they are inert. */
+  #smooth-wrapper,
+  #smooth-content {
+    will-change: transform;
+  }
+
+  :focus-visible {
+    outline: 3px solid var(--color-signal);
+    outline-offset: 2px;
+  }
+
+  ::selection {
+    background: var(--color-signal);
+    color: var(--color-paper);
+  }
+
+  /* ---------------------------------------------------------------------------
+     Reduced motion. Every GSAP timeline checks this too, but these rules make
+     sure nothing is left invisible if a script fails to run at all.
+     --------------------------------------------------------------------------- */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  /* Content that GSAP reveals is hidden ONLY when JS is present and motion is allowed. */
+  html.has-js:not(.reduced-motion) [data-anim='fade'] {
+    opacity: 0;
+  }
+  html.has-js:not(.reduced-motion) [data-anim='rise'] {
+    opacity: 0;
+    transform: translateY(2rem);
+  }
+
+  /* SplitText line masking: each line sits inside an overflow-hidden box. */
+  .split-line-mask {
+    overflow: hidden;
+    display: block;
+  }
+}
+
+@layer components {
+  /* ---------------------------------------------------------------------------
+     Typography
+     --------------------------------------------------------------------------- */
+  .display {
+    font-family: var(--font-display);
+    font-weight: 800;
+    line-height: 0.84;
+    letter-spacing: -0.045em;
+    text-transform: uppercase;
+  }
+
+  .label {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  /* A 11px line is 17px tall; WCAG 2.5.8 asks for 24px of target. The padding
+     grows the hit area without moving the text.
+     :where() keeps the specificity at zero on purpose: written as `button.label`
+     this rule outranks Tailwind's `md:hidden` and un-hides the mobile menu button
+     on desktop. Utility classes must always be able to win over base styles. */
+  :where(a.label, button.label, a .label, button .label) {
+    display: inline-block;
+    padding-block: 4px;
+  }
+
+  .rule {
+    border: 0;
+    border-top: 1px solid var(--color-rule);
+    margin: 0;
+  }
+
+  /* Hairline grid columns, the backbone of the Swiss layout. */
+  .grid-rules {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    z-index: 0;
+  }
+  @media (min-width: 768px) {
+    .grid-rules {
+      grid-template-columns: repeat(12, 1fr);
+    }
+  }
+  .grid-rules > span {
+    border-left: 1px solid var(--color-rule);
+    opacity: 0.5;
+  }
+
+  /* ---------------------------------------------------------------------------
+     Marquee, duplicated track, translated by GSAP, paused on reduced motion.
+     --------------------------------------------------------------------------- */
+  .marquee {
+    display: flex;
+    width: max-content;
+    will-change: transform;
+  }
+
+  /* ---------------------------------------------------------------------------
+     Custom cursor, driven by gsap.quickTo. Hidden on touch and reduced motion.
+     --------------------------------------------------------------------------- */
+  .cursor-dot {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 90;
+    pointer-events: none;
+    mix-blend-mode: difference;
+    width: 14px;
+    height: 14px;
+    border-radius: 999px;
+    background: #fff;
+    transform: translate(-50%, -50%);
+  }
+  @media (pointer: coarse), (prefers-reduced-motion: reduce) {
+    .cursor-dot {
+      display: none;
+    }
+  }
+
+  /* ---------------------------------------------------------------------------
+     Link with a DrawSVG-style underline that wipes in from the left.
+     --------------------------------------------------------------------------- */
+  .wipe {
+    position: relative;
+    display: inline-block;
+  }
+  .wipe::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -0.12em;
+    width: 100%;
+    height: 2px;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .wipe:hover::after,
+  .wipe:focus-visible::after {
+    transform: scaleX(1);
+  }
+
+  /* Preloader sits above everything until its timeline retires it. */
+  .preloader {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    background: var(--color-ink);
+    color: var(--color-paper);
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    padding: var(--gutter);
+  }
+}
