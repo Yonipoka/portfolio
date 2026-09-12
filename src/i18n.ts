@@ -11,7 +11,6 @@ export const SITE = {
   linkedin: 'https://www.linkedin.com/in/john-stewart-nucum-',
   github: 'https://github.com/Yonipoka',
   location: 'Genève, Suisse',
-  // Replace with your own Google Analytics measurement ID (G-XXXXXXXXXX).
   gaMeasurementId: 'G-GWBJ6N7BLC',
 }
 
@@ -374,7 +373,7 @@ export const content: Record<Lang, Content> = {
         },
         {
           q: 'Quelles technologies maîtrisez-vous vraiment ?',
-          a: "En développement : React, Next.js, TypeScript et Tailwind CSS, utilisés sur un vrai projet client de bout en bout. En données : SQL et Power BI. Je connais aussi Java avec Spring Boot et Python depuis mes cours. Je préfère dire clairement ce que je sais faire plutôt que de gonfler une liste.",
+          a: "En développement : React, Next.js, TypeScript et Tailwind CSS, utilisés sur un vrai projet client de bout en bout. En données : SQL et Power BI. Je connais aussi Java avec Spring Boot et Python depuis mes cours.",
         },
         {
           q: 'Quel est le meilleur moyen de vous contacter ?',
@@ -756,7 +755,7 @@ export const content: Record<Lang, Content> = {
         },
         {
           q: 'Which technologies do you actually know?',
-          a: 'For development: React, Next.js, TypeScript and Tailwind CSS, used end to end on a real client project. For data: SQL and Power BI. I also know Java with Spring Boot and Python from my coursework. I would rather state plainly what I can do than pad a list.',
+          a: 'For development: React, Next.js, TypeScript and Tailwind CSS, used end to end on a real client project. For data: SQL and Power BI. I also know Java with Spring Boot and Python from my coursework.',
         },
         {
           q: 'What is the best way to reach you?',
