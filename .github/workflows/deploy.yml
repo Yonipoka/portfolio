@@ -20,13 +20,15 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         with:
           node-version: 22
           cache: npm
 
+      # npm ci requires package-lock.json to be committed. Without it the job
+      # fails at the setup-node cache step before it ever reaches this line.
       - run: npm ci
 
       - name: Build
