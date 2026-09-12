@@ -263,7 +263,7 @@ export const content: Record<Lang, Content> = {
         {
           org: 'Union Européenne de Radio-Télévision (UER / EBU)',
           place: 'Genève',
-          role: 'Stage de maturité professionnelle, ressources humaines et administration',
+          role: 'Stage de maturité professionnelle : RH, finance, media intelligence et facility',
           period: '2020 – 2021',
           points: [
             'Analyse de données et production de tableaux de bord sous Power BI.',
@@ -645,7 +645,7 @@ export const content: Record<Lang, Content> = {
         {
           org: 'European Broadcasting Union (EBU)',
           place: 'Geneva',
-          role: 'Vocational placement year, human resources and administration',
+          role: 'Vocational placement year: HR, finance, media intelligence and facility',
           period: '2020 – 2021',
           points: [
             'Data analysis and Power BI dashboard production.',
